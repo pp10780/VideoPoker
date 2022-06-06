@@ -1,5 +1,6 @@
 package Dealer;
 
+import java.util.LinkedList;
 import Card.*;
 
 public class Deck {
