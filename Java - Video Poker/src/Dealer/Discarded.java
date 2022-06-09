@@ -5,13 +5,19 @@ import Card.*;
 
 public class Discarded {
 
-	/**
-	 * 
-	 * @param discarded_cards
-	 */
+	private LinkedList<Card> discarded;
 	public Discarded(LinkedList<Card> discarded_cards) {
-		// TODO - implement Discarded.Discarded
-		throw new UnsupportedOperationException();
+		discarded = discarded_cards;
+	}
+	
+	public LinkedList<Card> getDiscarded()
+	{
+		return discarded;
+	}
+	
+	@Override
+	public String toString() {
+		return "" + discarded;
 	}
 
 }

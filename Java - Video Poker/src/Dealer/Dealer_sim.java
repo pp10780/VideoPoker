@@ -1,55 +1,45 @@
 package Dealer;
 
-import java.util.LinkedList;
+import java.util.*;
 import Player.*;
 import Card.*;
 
-public class Dealer_sim {
+public class Dealer_sim extends Dealer{
 
+	Deck deck;
+	Discarded discarded;
 	public Dealer_sim() {
-		// TODO - implement Dealer_sim.Dealer_sim
-		throw new UnsupportedOperationException();
+		deck = new Deck();
 	}
 
-	/**
-	 * 
-	 * @param deck
-	 * @param player
-	 */
-	public void deal(Deck deck, Player player) {
-		// TODO - implement Dealer_sim.deal
-		throw new UnsupportedOperationException();
+	@Override
+	public void deal(Player player) 
+	{
+		deck.shuffle();
+		player.setHand(deck.draw(5));
+		
+		
+	}
+	@Override
+	public void draw(Player player, int n_cards) 
+	{
+		player.setHand(deck.draw(n_cards));
 	}
 
-	/**
-	 * 
-	 * @param deck
-	 * @param player
-	 * @param n_cards
-	 */
-	public void draw(Deck deck, Player player, int n_cards) {
-		// TODO - implement Dealer_sim.draw
-		throw new UnsupportedOperationException();
+	
+	public void resetDeck(Hand hand) 
+	{
+		Collection<Card> disc = new LinkedList<Card>(discarded.getDiscarded());
+		Collection<Card> hand_c = new LinkedList<Card>(hand.getCards());
+		
+		deck.getDeck().addAll(disc);
+		deck.getDeck().addAll(hand_c);
+		
 	}
 
-	/**
-	 * 
-	 * @param deck
-	 * @param discarded_cards
-	 * @param hand
-	 */
-	public void resetDeck(Deck deck, Discarded discarded_cards, Hand hand) {
-		// TODO - implement Dealer_sim.resetDeck
-		throw new UnsupportedOperationException();
-	}
-
-	/**
-	 * 
-	 * @param discarded_cards
-	 */
-	public void discard(LinkedList<Card> discarded_cards) {
-		// TODO - implement Dealer_sim.discard
-		throw new UnsupportedOperationException();
+	public void discard(LinkedList<Card> discarded_cards) 
+	{
+		discarded = new Discarded(discarded_cards);
 	}
 
 }

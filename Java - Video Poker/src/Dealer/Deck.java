@@ -1,27 +1,47 @@
 package Dealer;
 
-import java.util.LinkedList;
+import java.util.*;
 import Card.*;
 
 public class Deck {
 
+	private LinkedList<Card> deck = new LinkedList<Card>();
 	public Deck() {
-		// TODO - implement Deck.Deck
-		throw new UnsupportedOperationException();
+		char[] auxSuit = {'S', 'C', 'H', 'D'};
+		char[] auxRank = {'A','2', '3', '4', '5', '6', '7', '8', '9', 'T',  'J', 'Q', 'K'};
+		
+		for(char suit : auxSuit)
+		{
+			for(char rank : auxRank)
+			{
+				deck.add(new Card(rank, suit));
+			}
+		}
 	}
 
 	public void shuffle() {
-		// TODO - implement Deck.shuffle
-		throw new UnsupportedOperationException();
+		Collections.shuffle(deck);
 	}
 
-	/**
-	 * 
-	 * @param n_cards
-	 */
 	public LinkedList<Card> draw(int n_cards) {
-		// TODO - implement Deck.draw
-		throw new UnsupportedOperationException();
+		LinkedList<Card> cards = new LinkedList<Card>();
+		for(int i = 0; i < n_cards; i++)
+		{
+			cards.add(deck.removeFirst());
+		}
+		return cards;
 	}
+	
+	public LinkedList<Card> getDeck()
+	{
+		return deck;
+	}
+
+	@Override
+	public String toString() {
+		return  "" + deck;
+	}
+	
+	
 
 }

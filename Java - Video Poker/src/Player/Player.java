@@ -2,63 +2,55 @@ package Player;
 
 import java.util.LinkedList;
 import Card.*;
+import Dealer.*;
 
 public class Player {
 
 	private int balance;
+	private int wagered;
+	private Hand hand;
 
-	/**
-	 * 
-	 * @param balance
-	 */
-	public Player(int balance) {
+	public Player(int _balance) {
 		// TODO - implement Player.Player
-		throw new UnsupportedOperationException();
+		balance = _balance;
+		wagered = 0;
+		hand = new Hand();
+		
 	}
 
-	/**
-	 * 
-	 * @param new_Cards
-	 */
 	public void setHand(LinkedList<Card> new_Cards) {
-		// TODO - implement Player.setHand
-		throw new UnsupportedOperationException();
+		hand.setCards(new_Cards);
 	}
 
-	public void getHand() {
-		// TODO - implement Player.getHand
-		throw new UnsupportedOperationException();
+	public Hand getHand() {
+		return hand;
 	}
 
-	/**
-	 * 
-	 * @param cards
-	 */
-	public void discard(int cards) {
-		// TODO - implement Player.discard
-		throw new UnsupportedOperationException();
+	public void discard(int[] cards, Dealer_sim dealer) {
+		LinkedList<Card> discarded = new LinkedList<Card>();
+		for(int i = 0; i < cards.length; i++)
+		{
+			discarded.add(hand.getCards().remove(cards[i] - 1));
+		}
+		dealer.discard(discarded);
 	}
 
-	/**
-	 * 
-	 * @param value
-	 */
 	public void bet(int value) {
-		// TODO - implement Player.bet
-		throw new UnsupportedOperationException();
+		balance -= value;
+		wagered += value;
 	}
 
-	/**
-	 * 
-	 * @param value
-	 */
 	public void setBalance(int value) {
-		this.balance = value;
+		balance = value;
 	}
 
-	public void getBalance() {
-		// TODO - implement Player.getBalance
-		throw new UnsupportedOperationException();
+	public int getBalance() {
+		return balance;
+	}
+	
+	public int getWagered()
+	{
+		return wagered;
 	}
 
 }

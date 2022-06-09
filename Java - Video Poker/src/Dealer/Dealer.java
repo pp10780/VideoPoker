@@ -1,11 +1,11 @@
 package Dealer;
 
-public interface Dealer {
+import Player.Player;
 
-	void deal();
+public abstract class Dealer {
 
-	void draw();
+	public void deal(Player player) {};
 
-	void discard();
+	public void draw(Player player, int n_cards){};
 
 }
