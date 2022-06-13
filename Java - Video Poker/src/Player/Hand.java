@@ -36,6 +36,14 @@ public class Hand {
 	
 	@Override
 	public String toString() {
-		return "" + hand;
+		String sHand = new String();
+		for(Card c: hand)
+		{
+			sHand += c.getRank();
+			sHand += c.getSuit();
+			sHand += " ";
+		}
+			
+		return sHand;
 	}
 }

@@ -1,5 +1,7 @@
 package Game;
 
+import java.util.Arrays;
+
 import Dealer.Dealer_deb;
 import Player.Player;
 
@@ -8,12 +10,14 @@ public class VideoPoker_deb implements VideoPoker{
 	private Dealer_deb dealer;
 	private Player player;
 	private int previous_bet;
+	private Strategy final_hand;
 	
 	
 	public VideoPoker_deb(int credit, String[] cards) {
 		player = new Player(credit);
 		dealer = new Dealer_deb(cards);
 		previous_bet = -1;
+		final_hand = new Strategy();
 	}
 
 	public void execute_cmd(String[] cmd) {
@@ -77,8 +81,20 @@ public class VideoPoker_deb implements VideoPoker{
 						break;
 				}
 				System.out.println("");
+				
 				hold(pos_arr);
-				result();
+				
+				final_hand = new Strategy();
+				final_hand.fill_matrix(player.getHand());
+				
+				payment(final_hand.result());
+				
+				//Discard hand
+				for(int j = 4; j >= 0; j--)
+				{
+						player.getHand().getCards().remove();
+				}
+				
 			}
 			else
 			{
@@ -87,118 +103,92 @@ public class VideoPoker_deb implements VideoPoker{
 		}
 	}
 	
-	public void result()
+	public void payment(String result)
 	{
-		Strategy final_hand = new Strategy();
-		int result = 11;
-		int c;
-		final_hand.fill_matrix(player.getHand());
-		
-		result = final_hand.isRest();
-		
-		if(result == 11)
-		{
-			result = final_hand.isFlush();
-			
-			if((c = final_hand.isStraight()) < result)
-				result = c;
-		}
-		
-		payment(result);
-		
-		
-		for(int j = 4; j >= 0; j--)
-		{
-				player.getHand().getCards().remove();
-		}
-	}
-	
-	public void payment(int result)
-	{
-		if(result == 0)
+		if(result.equals("Royal Flush"))
 		{
 			if(player.getHand().getBetSize() == 5)
 				player.setBalance(4000);
 			else
 				player.setBalance(player.getHand().getBetSize()*250);
 			
-			System.out.println("player wins with a ROYAL FLUSH and his credit is " + player.getBalance());
+			System.out.println("player wins with a " + result + " and his credit is " + player.getBalance());
 		}
 			
-		else if(result == 1)
+		else if(result.equals("Straight Flush"))
 		{
 			player.setBalance(player.getHand().getBetSize()*50);
 			
-			System.out.println("player wins with a STRAIGHT FLUSH and his credit is " + player.getBalance());
+			System.out.println("player wins with a " + result + " and his credit is " + player.getBalance());
 		}
 			
-		else if(result == 2)
+		else if(result.equals("Four Aces"))
 		{
 			player.setBalance(player.getHand().getBetSize()*160);
 			
-			System.out.println("player wins with a FOUR ACES and his credit is " + player.getBalance());
+			System.out.println("player wins with a " + result + " and his credit is " + player.getBalance());
 		}
 			
 		
-		else if(result == 3)
+		else if(result.equals("Four 2–4"))
 		{
 			player.setBalance(player.getHand().getBetSize()*80);
 			
-			System.out.println("player wins with a FOUR 2-4 and his credit is " + player.getBalance());
+			System.out.println("player wins with a " + result + " and his credit is " + player.getBalance());
 		}
 			
-		else if(result == 4)
+		else if(result.equals("Four 5–K"))
 		{
 			player.setBalance(player.getHand().getBetSize()*50);
 			
-			System.out.println("player wins with a FOUR 5-K and his credit is " + player.getBalance());
+			System.out.println("player wins with a " + result + " and his credit is " + player.getBalance());
 		}
 			
-		else if(result == 5)
+		else if(result.equals("Full House"))
 		{
 			player.setBalance(player.getHand().getBetSize()*10);
 			
-			System.out.println("player wins with a FULL HOUSE and his credit is " + player.getBalance());
+			System.out.println("player wins with a " + result + " and his credit is " + player.getBalance());
 		}
 			
-		else if(result == 6)
+		else if(result.equals("Flush"))
 		{
 			player.setBalance(player.getHand().getBetSize()*7);
 			
-			System.out.println("player wins with a FLUSH and his credit is " + player.getBalance());
+			System.out.println("player wins with a " + result + " and his credit is " + player.getBalance());
 		}
 			
-		else if(result == 7)
+		else if(result.equals("Straight"))
 		{
 			player.setBalance(player.getHand().getBetSize()*5);
 			
-			System.out.println("player wins with a STRAIGHT and his credit is " + player.getBalance());
+			System.out.println("player wins with a " + result + " and his credit is " + player.getBalance());
 		}
 			
-		else if(result == 8)
+		else if(result.equals("Three of a Kind"))
 		{
 			player.setBalance(player.getHand().getBetSize()*3);
 			
-			System.out.println("player wins with a THREE OF A KIND and his credit is " + player.getBalance());
+			System.out.println("player wins with a " + result + " and his credit is " + player.getBalance());
 		}
 			
-		else if(result == 9)
+		else if(result.equals("Two Pair"))
 		{
 			player.setBalance(player.getHand().getBetSize()*1);
 			
-			System.out.println("player wins with a TWO PAIR and his credit is " + player.getBalance());
+			System.out.println("player wins with a " + result + " and his credit is " + player.getBalance());
 		}	
-		else if(result == 10)
+		else if(result.equals("Jacks or Better"))
 		{
 			player.setBalance(player.getHand().getBetSize()*1);
 			
-			System.out.println("player wins with a JACKS OR BETTER and his credit is " + player.getBalance());
+			System.out.println("player wins with a " + result + " and his credit is " + player.getBalance());
 		}
 		else
 			System.out.println("player loses and his credit is " + player.getBalance());
 	}
 
-	private void bet(int value) {
+	public void bet(int value) {
 		if(value == -1)
 		{
 			if (previous_bet == -1)
@@ -221,16 +211,16 @@ public class VideoPoker_deb implements VideoPoker{
 			
 	}
 
-	private void credit() {
+	public void credit() {
 		System.out.println("player's credit is " + player.getBalance());
 	}
 
-	private void deal() {
+	public void deal() {
 		dealer.deal(player);
 		System.out.println("player's hand " + player.getHand());
 	}
 
-	private void hold(int[] cards) {
+	public void hold(int[] cards) {
 		int n_cards_discarded = 0;
 		for(int i = 4; i >= 0; i--)
 		{
@@ -242,7 +232,6 @@ public class VideoPoker_deb implements VideoPoker{
 		}
 		dealer.draw(player, n_cards_discarded);
 		System.out.println("player's hand " + player.getHand());
-
 	}
 	
 	

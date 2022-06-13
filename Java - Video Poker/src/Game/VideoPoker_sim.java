@@ -7,7 +7,7 @@ public class VideoPoker_sim {
 		throw new UnsupportedOperationException();
 	}
 	
-	
+	/*
 	private void hold(int[] cards) {
 		int[] discarded_pos = new int[5];
 		int index = 0;
@@ -28,5 +28,5 @@ public class VideoPoker_sim {
 		
 		dealer.draw(player, n_cards_discarded);
 	}
-
+	*/
 }

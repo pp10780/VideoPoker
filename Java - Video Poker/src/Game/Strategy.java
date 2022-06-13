@@ -1,11 +1,14 @@
 package Game;
 
+import java.util.Arrays;
+
 import Card.Card;
 import Player.*;
 
 public class Strategy {
 
-	private int[][] mat_hand;
+	protected int[][] mat_hand;
+	private String[] winning_hands;
 	// mat_hand
 	//	2	3	4	5	6	7	8	9	10	J Q K A
 	//H : 0
@@ -14,11 +17,24 @@ public class Strategy {
 	//S : 3
 	public Strategy() {
 		mat_hand = new int[4][13];
+		winning_hands = new String[]{"Royal Flush",
+						 "Straight Flush",
+				         "Four Aces",
+						 "Four 2–4",
+						 "Four 5–K",
+						 "Full House",
+						 "Flush",
+						 "Straight",
+						 "Three of a Kind",
+						 "Two Pair",
+						 "Jacks or Better",
+						 "None"};
 	}
 
 	public void fill_matrix(Hand hand) {
 		char s;
 		int index = 0;
+		
 		for(Card c: hand.getCards())
 		{
 			s = c.getSuit();
@@ -55,6 +71,23 @@ public class Strategy {
 					mat_hand[3][index] = 1;
 			}
 		}
+	}
+	
+	public String result()
+	{
+		int result = 11;
+		int c;
+		
+		result = this.isRest();
+		
+		if(result == 11)
+		{
+			result = this.isFlush();
+			
+			if((c = this.isStraight()) < result)
+				result = c;
+		}
+		return winning_hands[result];
 	}
 	
 	//Royal Flush         - 0
@@ -155,12 +188,11 @@ public class Strategy {
 		 else if(cnt2 == 1 && j > 8)
 			 return 10;
 		
-		return 11;
-		 
+		return 11; 
 }
 
 
-	private int sumRow(int[] array, int index, int length) {
+	protected int sumRow(int[] array, int index, int length) {
 		int result = 0;
 		for(int i = index; i < index + length; i++)
 			result += array[i];
@@ -168,12 +200,11 @@ public class Strategy {
 	}
 
 
-	private int sumCol(int col) {
+	protected int sumCol(int col) {
 		int result = 0;
 		for(int i = 0; i < 4; i++)
 			result += mat_hand[i][col];
 		return result;
-
 	}
 
 }
