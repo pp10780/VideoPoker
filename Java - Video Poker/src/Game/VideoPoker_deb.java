@@ -78,16 +78,124 @@ public class VideoPoker_deb implements VideoPoker{
 				}
 				System.out.println("");
 				hold(pos_arr);
-				for(int j = 4; j >= 0; j--)
-				{
-						player.getHand().getCards().remove();
-				}
+				result();
 			}
 			else
 			{
 				System.out.println("Invalid Command! -> " + cmd[i]);
 			}
 		}
+	}
+	
+	public void result()
+	{
+		Strategy final_hand = new Strategy();
+		int result = 11;
+		int c;
+		final_hand.fill_matrix(player.getHand());
+		
+		result = final_hand.isRest();
+		
+		if(result == 11)
+		{
+			result = final_hand.isFlush();
+			
+			if((c = final_hand.isStraight()) < result)
+				result = c;
+		}
+		
+		payment(result);
+		
+		
+		for(int j = 4; j >= 0; j--)
+		{
+				player.getHand().getCards().remove();
+		}
+	}
+	
+	public void payment(int result)
+	{
+		if(result == 0)
+		{
+			if(player.getHand().getBetSize() == 5)
+				player.setBalance(4000);
+			else
+				player.setBalance(player.getHand().getBetSize()*250);
+			
+			System.out.println("player wins with a ROYAL FLUSH and his credit is " + player.getBalance());
+		}
+			
+		else if(result == 1)
+		{
+			player.setBalance(player.getHand().getBetSize()*50);
+			
+			System.out.println("player wins with a STRAIGHT FLUSH and his credit is " + player.getBalance());
+		}
+			
+		else if(result == 2)
+		{
+			player.setBalance(player.getHand().getBetSize()*160);
+			
+			System.out.println("player wins with a FOUR ACES and his credit is " + player.getBalance());
+		}
+			
+		
+		else if(result == 3)
+		{
+			player.setBalance(player.getHand().getBetSize()*80);
+			
+			System.out.println("player wins with a FOUR 2-4 and his credit is " + player.getBalance());
+		}
+			
+		else if(result == 4)
+		{
+			player.setBalance(player.getHand().getBetSize()*50);
+			
+			System.out.println("player wins with a FOUR 5-K and his credit is " + player.getBalance());
+		}
+			
+		else if(result == 5)
+		{
+			player.setBalance(player.getHand().getBetSize()*10);
+			
+			System.out.println("player wins with a FULL HOUSE and his credit is " + player.getBalance());
+		}
+			
+		else if(result == 6)
+		{
+			player.setBalance(player.getHand().getBetSize()*7);
+			
+			System.out.println("player wins with a FLUSH and his credit is " + player.getBalance());
+		}
+			
+		else if(result == 7)
+		{
+			player.setBalance(player.getHand().getBetSize()*5);
+			
+			System.out.println("player wins with a STRAIGHT and his credit is " + player.getBalance());
+		}
+			
+		else if(result == 8)
+		{
+			player.setBalance(player.getHand().getBetSize()*3);
+			
+			System.out.println("player wins with a THREE OF A KIND and his credit is " + player.getBalance());
+		}
+			
+		else if(result == 9)
+		{
+			player.setBalance(player.getHand().getBetSize()*1);
+			
+			System.out.println("player wins with a TWO PAIR and his credit is " + player.getBalance());
+		}	
+		else if(result == 10)
+		{
+			player.setBalance(player.getHand().getBetSize()*1);
+			
+			System.out.println("player wins with a JACKS OR BETTER and his credit is " + player.getBalance());
+		}
+		else
+			System.out.println("player loses and his credit is " + player.getBalance());
 	}
 
 	private void bet(int value) {

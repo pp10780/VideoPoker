@@ -6,9 +6,10 @@ import Card.*;
 
 public class Hand {
 
-	LinkedList<Card> hand;
+	private LinkedList<Card> hand;
+	private int bet_size;
+	
 	public Hand() {
-		// TODO - implement Hand.Hand
 		hand = new LinkedList<Card>();
 	}
 	
@@ -22,7 +23,17 @@ public class Hand {
 		Collection<Card> new_cards_c = new LinkedList<Card>(new_cards);
 		hand.addAll(new_cards_c);
 	}
-
+	
+	public int getBetSize()
+	{
+		return bet_size;
+	}
+	
+	public void setBetSize(int _bet)
+	{
+		bet_size = _bet;
+	}
+	
 	@Override
 	public String toString() {
 		return "" + hand;

@@ -9,6 +9,16 @@ public class Card {
 		Rank = _Rank;
 		Suit = _Suit;
 	}
+	
+	public char getRank()
+	{
+		return Rank;
+	}
+	
+	public char getSuit()
+	{
+		return Suit;
+	}
 
 	@Override
 	public String toString() {

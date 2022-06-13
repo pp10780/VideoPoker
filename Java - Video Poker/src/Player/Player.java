@@ -38,10 +38,11 @@ public class Player {
 	public void bet(int value) {
 		balance -= value;
 		wagered += value;
+		hand.setBetSize(value);
 	}
 
 	public void setBalance(int value) {
-		balance = value;
+		balance += value;
 	}
 
 	public int getBalance() {
