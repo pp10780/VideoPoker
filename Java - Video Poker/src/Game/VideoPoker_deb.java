@@ -1,7 +1,5 @@
 package Game;
 
-import java.util.Arrays;
-
 import Dealer.Dealer_deb;
 import Player.Player;
 
@@ -11,6 +9,7 @@ public class VideoPoker_deb implements VideoPoker{
 	private Player player;
 	private int previous_bet;
 	private Strategy final_hand;
+	private PerfectStrategy first_hand;
 	
 	
 	public VideoPoker_deb(int credit, String[] cards) {
@@ -21,12 +20,11 @@ public class VideoPoker_deb implements VideoPoker{
 	}
 
 	public void execute_cmd(String[] cmd) {
-		int value = 0, pos = 0;
+		int value = 0, pos = 0, l;
 		int[] pos_arr;
 		for(int i = 0; i < cmd.length; i++)
 		{
 			System.out.println("");
-			//System.out.println("----------->   -cmd " + cmd[i]);
 			if(cmd[i].equals("$"))
 			{
 				System.out.println("-cmd " + cmd[i]);
@@ -95,6 +93,22 @@ public class VideoPoker_deb implements VideoPoker{
 						player.getHand().getCards().remove();
 				}
 				
+			}
+			else if(cmd[i].equals("a"))
+			{
+				System.out.println("-cmd " + cmd[i]);
+				System.out.print("player should hold cards ");
+				pos_arr = new int[5];
+				first_hand = new PerfectStrategy();
+				first_hand.fill_matrix(player.getHand());
+				
+				pos_arr = first_hand.decision(player.getHand());
+				for(l = 0; l < pos_arr.length; l++)
+				{
+					if(pos_arr[l] == 1)
+						System.out.print(l + 1 + " ");
+				}
+				System.out.println("");
 			}
 			else
 			{
