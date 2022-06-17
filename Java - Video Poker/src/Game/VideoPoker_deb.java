@@ -22,8 +22,10 @@ public class VideoPoker_deb implements VideoPoker{
 	public void execute_cmd(String[] cmd) {
 		int value = 0, pos = 0, l;
 		int[] pos_arr;
+		int deb_cnt = 1;
 		for(int i = 0; i < cmd.length; i++)
 		{
+			
 			System.out.println("");
 			if(cmd[i].equals("$"))
 			{
@@ -32,6 +34,7 @@ public class VideoPoker_deb implements VideoPoker{
 			}
 			else if(cmd[i].equals("d"))
 			{
+				System.out.println(deb_cnt++);
 				System.out.println("-cmd " + cmd[i]);
 				deal();
 			}
@@ -119,7 +122,7 @@ public class VideoPoker_deb implements VideoPoker{
 	
 	public void payment(String result)
 	{
-		if(result.equals("Royal Flush"))
+		if(result.equals("ROYAL FLUSH"))
 		{
 			if(player.getHand().getBetSize() == 5)
 				player.setBalance(4000);
@@ -129,14 +132,14 @@ public class VideoPoker_deb implements VideoPoker{
 			System.out.println("player wins with a " + result + " and his credit is " + player.getBalance());
 		}
 			
-		else if(result.equals("Straight Flush"))
+		else if(result.equals("STRAIGHT FLUSH"))
 		{
 			player.setBalance(player.getHand().getBetSize()*50);
 			
 			System.out.println("player wins with a " + result + " and his credit is " + player.getBalance());
 		}
 			
-		else if(result.equals("Four Aces"))
+		else if(result.equals("FOUR ACES"))
 		{
 			player.setBalance(player.getHand().getBetSize()*160);
 			
@@ -144,55 +147,55 @@ public class VideoPoker_deb implements VideoPoker{
 		}
 			
 		
-		else if(result.equals("Four 2–4"))
+		else if(result.equals("FOUR 2–4"))
 		{
 			player.setBalance(player.getHand().getBetSize()*80);
 			
 			System.out.println("player wins with a " + result + " and his credit is " + player.getBalance());
 		}
 			
-		else if(result.equals("Four 5–K"))
+		else if(result.equals("FOUR 5–K"))
 		{
 			player.setBalance(player.getHand().getBetSize()*50);
 			
 			System.out.println("player wins with a " + result + " and his credit is " + player.getBalance());
 		}
 			
-		else if(result.equals("Full House"))
+		else if(result.equals("FULL HOUSE"))
 		{
 			player.setBalance(player.getHand().getBetSize()*10);
 			
 			System.out.println("player wins with a " + result + " and his credit is " + player.getBalance());
 		}
 			
-		else if(result.equals("Flush"))
+		else if(result.equals("FLUSH"))
 		{
 			player.setBalance(player.getHand().getBetSize()*7);
 			
 			System.out.println("player wins with a " + result + " and his credit is " + player.getBalance());
 		}
 			
-		else if(result.equals("Straight"))
+		else if(result.equals("STRAIGHT"))
 		{
 			player.setBalance(player.getHand().getBetSize()*5);
 			
 			System.out.println("player wins with a " + result + " and his credit is " + player.getBalance());
 		}
 			
-		else if(result.equals("Three of a Kind"))
+		else if(result.equals("THREE OF A KIND"))
 		{
 			player.setBalance(player.getHand().getBetSize()*3);
 			
 			System.out.println("player wins with a " + result + " and his credit is " + player.getBalance());
 		}
 			
-		else if(result.equals("Two Pair"))
+		else if(result.equals("TWO PAIR"))
 		{
 			player.setBalance(player.getHand().getBetSize()*1);
 			
 			System.out.println("player wins with a " + result + " and his credit is " + player.getBalance());
 		}	
-		else if(result.equals("Jacks or Better"))
+		else if(result.equals("JACKS OR BETTER"))
 		{
 			player.setBalance(player.getHand().getBetSize()*1);
 			

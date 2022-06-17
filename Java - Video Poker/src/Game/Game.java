@@ -18,7 +18,7 @@ public class Game {
 		      File card_stack = new File(card_file);
 		      Scanner reader = new Scanner(card_stack);
 		      while (reader.hasNextLine()) {
-		        aux_cards = aux_cards + reader.nextLine();
+		        aux_cards = aux_cards + " " + reader.nextLine();
 		      }
 		      reader.close();
 		    } catch (FileNotFoundException e) {
@@ -43,7 +43,7 @@ public class Game {
 		      File card_stack = new File(cmd_file);
 		      Scanner reader = new Scanner(card_stack);
 		      while (reader.hasNextLine()) {
-		        aux_cmd = aux_cmd + reader.nextLine();
+		        aux_cmd = aux_cmd + " " + reader.nextLine();
 		      }
 		      reader.close();
 		    } catch (FileNotFoundException e) {

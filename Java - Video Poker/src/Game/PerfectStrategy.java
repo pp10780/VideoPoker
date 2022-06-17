@@ -24,6 +24,8 @@ public class PerfectStrategy extends Strategy {
 		int[] holdCards = new int[5];
 		int[] suits = new int[] {'H', 'D', 'C', 'S'};
 		int[] ranks = new int[] {'2', '3', '4', '5', '6', '7', '8', '9', 'T', 'J', 'Q', 'K', 'A'};
+		int aceException = 0;
+		int acePos;
 		int i = 0;
 		
 		this.isUnsuited();
@@ -31,10 +33,9 @@ public class PerfectStrategy extends Strategy {
 		this.isEqualRank();
 		this.isFlush();
 		this.isStraight();
-		
 		if(resultStrat == 1)
 		{
-			for(i = 0; i < 4; i++)
+			for(i = 0; i < 5; i++)
 				holdCards[i] = 1;
 		}
 		else if(resultStrat == 2)
@@ -57,7 +58,7 @@ public class PerfectStrategy extends Strategy {
 		}
 		else if(resultStrat == 4)
 		{
-			for(i = 0; i < 4; i++)
+			for(i = 0; i < 5; i++)
 				holdCards[i] = 1;
 		}
 		else if(resultStrat == 5)
@@ -71,13 +72,16 @@ public class PerfectStrategy extends Strategy {
 		}
 		else if(resultStrat == 6)
 		{
-			for(i = straightBeg; i < 5; i++)
+			for(i = straightBeg; i < straightBeg + 5; i++)
 			{
 				if(mat_hand[flushSuit][i] != 0)
 				{
 					holdCards[mat_hand[flushSuit][i] - 1] = 1;
 				}
-				i++;
+				if(i == 0 && mat_hand[flushSuit][12] != 0)
+				{
+					holdCards[mat_hand[flushSuit][12] - 1] = 1;
+				}
 			}
 		}
 		else if(resultStrat == 7)
@@ -117,8 +121,20 @@ public class PerfectStrategy extends Strategy {
 			}	
 		}
 		else if(resultStrat == 11)
-		{
-			
+		{	
+			for(Card card: hand.getCards())
+			{
+				for(int j = straightBeg; j < straightBeg + 5; j++)
+				{
+					if(card.getRank() == ranks[j])
+					{
+						holdCards[i] = 1;
+						ranks[j] = '-';
+					}
+						
+				}
+				i++;
+			}	
 		}
 		else if(resultStrat == 12)
 		{
@@ -142,18 +158,38 @@ public class PerfectStrategy extends Strategy {
 		}
 		else if(resultStrat == 14)
 		{
-			for(i = straightBeg; i < 5; i++)
+			for(i = straightBeg; i < straightBeg + 5; i++)
 			{
 				if(mat_hand[flushSuit][i] != 0)
 				{
 					holdCards[mat_hand[flushSuit][i] - 1] = 1;
 				}
-				i++;
+				if(i == 0 && mat_hand[flushSuit][12] != 0)
+				{
+					holdCards[mat_hand[flushSuit][12] - 1] = 1;
+				}
 			}
 		}
 		else if(resultStrat == 15)
 		{
-			
+			if(straightBeg == 0 && (acePos = sumCol(12)) != 0)
+			{
+				aceException = 1;
+				holdCards[acePos] = 1;
+			}
+			for(Card card: hand.getCards())
+			{
+				for(int j = straightBeg; j < straightBeg + 5 - aceException; j++)
+				{
+					if(card.getRank() == ranks[j])
+					{
+						holdCards[i] = 1;
+						ranks[j] = '-';
+					}
+						
+				}
+				i++;
+			}	
 		}
 		else if(resultStrat == 16)
 		{
@@ -184,22 +220,59 @@ public class PerfectStrategy extends Strategy {
 		}
 		else if(resultStrat == 19)
 		{
-			
+			if(straightBeg == 0 && (acePos = sumCol(12)) != 0)
+			{
+				aceException = 1;
+				holdCards[acePos] = 1;
+			}
+			for(Card card: hand.getCards())
+			{
+				for(int j = straightBeg; j < straightBeg + 5 - aceException; j++)
+				{
+					if(card.getRank() == ranks[j])
+					{
+						holdCards[i] = 1;
+						ranks[j] = '-';
+					}
+						
+				}
+				i++;
+			}	
 		}
 		else if(resultStrat == 20)
 		{
-			for(i = straightBeg; i < 5; i++)
+			for(i = straightBeg; i < straightBeg + 5; i++)
 			{
 				if(mat_hand[flushSuit][i] != 0)
 				{
 					holdCards[mat_hand[flushSuit][i] - 1] = 1;
 				}
-				i++;
+				if(i == 0 && mat_hand[flushSuit][12] != 0)
+				{
+					holdCards[mat_hand[flushSuit][12] - 1] = 1;
+				}
 			}
 		}
 		else if(resultStrat == 21)
 		{
-			
+			if(straightBeg == 0 && (acePos = sumCol(12)) != 0)
+			{
+				aceException = 1;
+				holdCards[acePos] = 1;
+			}
+			for(Card card: hand.getCards())
+			{
+				for(int j = straightBeg; j < straightBeg + 5 - aceException; j++)
+				{
+					if(card.getRank() == ranks[j])
+					{
+						holdCards[i] = 1;
+						ranks[j] = '-';
+					}
+						
+				}
+				i++;
+			}	
 		}
 		else if(resultStrat == 22)
 		{
@@ -248,13 +321,16 @@ public class PerfectStrategy extends Strategy {
 		}
 		else if(resultStrat == 27)
 		{
-			for(i = straightBeg; i < 5; i++)
+			for(i = straightBeg; i < straightBeg + 5 - aceException; i++)
 			{
 				if(mat_hand[flushSuit][i] != 0)
 				{
 					holdCards[mat_hand[flushSuit][i] - 1] = 1;
 				}
-				i++;
+				if(i == 0 && mat_hand[flushSuit][12] != 0)
+				{
+					holdCards[mat_hand[flushSuit][12] - 1] = 1;
+				}
 			}
 		}
 		else if(resultStrat == 28)
@@ -295,7 +371,23 @@ public class PerfectStrategy extends Strategy {
 		}
 		else if(resultStrat == 32)
 		{
-			
+			if(straightBeg == 0 && (acePos = sumCol(12)) != 0)
+			{
+				aceException = 1;
+				holdCards[acePos] = 1;
+			}
+			for(Card card: hand.getCards())
+			{
+				for(int j = straightBeg; j < straightBeg + 5 - aceException; j++)
+				{
+					if(card.getRank() == ranks[j])
+					{
+						holdCards[i] = 1;
+						ranks[j] = '-';
+					}	
+				}
+				i++;
+			}	
 		}
 		else if(resultStrat == 33)
 		{
@@ -313,105 +405,134 @@ public class PerfectStrategy extends Strategy {
 	public void isStraight() {
 		int straight = 0;
 		int straight_flush = 0;
+		int aceException = 0;
 		int nHC = 0;
 		int nGaps = 0;
-		int resultStrat = 34;
 		
 		for(int i = 0; i < 4; i++)
 		{
-			for(int j = 0; j < 9; j++)
+			for(int j = -1; j < 9; j++)
 			{
 				nHC = 0;
 				straight_flush = 0;
 				straight = 0;
-				if(j == 0 && mat_hand[i][12] != 0)
-					straight_flush++;
-					
-				straight_flush = super.sumRow(mat_hand[i], j, 5);
-				for(int k = 0; k < 5; k++)
+				if(j == -1)
 				{
-					if(j == 0 && super.sumCol(12) > 0)
+					aceException = 1;
+					if(mat_hand[i][12] != 0)
+						straight_flush++;
+					straight_flush += super.sumRow(mat_hand[i], 0, 4);
+					
+					if(sumCol(12) != 0)
 						straight++;
-					if(super.sumCol(j + k) != 0)
-						straight++;
+					for(int k = 0; k < 4; k++)
+					{
+						if(super.sumCol(k) != 0)
+							straight++;
+					}
 				}
+				else
+				{
+					aceException = 0;
+					straight_flush += super.sumRow(mat_hand[i], j, 5);
+				
+					for(int k = 0; k < 5; k++)
+					{
+						if(super.sumCol(j + k) != 0)
+							straight++;
+					}
+				}
+				
 				if(straight_flush == 5)
+				{
 					if(resultStrat > 1)
 					{
 						resultStrat = 1;
 					}
-						
-				else if(straight == 5)
+				}
+				if(straight == 5)
+				{
 					if(resultStrat > 4)
 					{
 						resultStrat = 4;
 					}
-						
-				else if(straight_flush == 4)
+				}	
+				if(straight_flush == 4)
+				{
 					if(resultStrat > 6)
 					{
+						straightBeg = j + aceException;
 						flushSuit = i;
 						resultStrat = 6;
 					}
-						
-				else if(straight == 4)
+				}
+				if(straight == 4)
 				{
-					if((super.sumCol(j) == 0 || super.sumCol(j + 4) == 0) && j + 4 != 12)
+					int ace = j + aceException;
+					nGaps = gapCounterCol(j + aceException);
+					if(aceException != 0)
+						ace = 12;
+					if(((super.sumCol(ace) != 0 && (super.sumCol(j  + aceException + 4)) == 0) || (super.sumCol(ace) == 0  &&(super.sumCol(j  + aceException + 4)) != 0)) && j + aceException + 4 != 12 && nGaps == 0)
+					{
 						if(resultStrat > 11)
 						{
-							straightBeg = j;
+							straightBeg = j + aceException;
 							resultStrat = 11;
 						}
-							
-					else if((super.sumCol(j) == 1 && super.sumCol(j + 4) == 1) || (j == 0 && super.sumCol(12) > 1 && super.sumCol(j + 4) == 0) || (j == 8 && super.sumCol(12) > 1 && super.sumCol(j) == 0))
+					}		
+					else if((super.sumCol(j + aceException) != 0 && super.sumCol(j + aceException + 4) != 0) || (j + aceException == 0 && super.sumCol(12) > 0 && super.sumCol(j + aceException + 4) == 0) || (j + aceException == 8 && super.sumCol(12) > 0 && super.sumCol(j + aceException) == 0))
 					{
+						
 						nHC = 0;
-						for(int l = 0; l < 4; l++)
-							nHC += highcardCounter(l);
+						for(int l = j + aceException; l < j + aceException + 5; l++)
+						{
+							if(isHighCard(l))
+								nHC++;
+						}
 						if(nHC == 3 && resultStrat > 15)
 						{
-							straightBeg = j;
+							straightBeg = j + aceException;
 							resultStrat = 15;
 						}
 						if(nHC == 2 && resultStrat > 19)
 						{
-							straightBeg = j;
+							straightBeg = j + aceException;
 							resultStrat = 19;
 						}	
 						if(nHC == 1 && resultStrat > 21)
 						{
-							straightBeg = j;
+							straightBeg = j + aceException;
 							resultStrat = 21;
 						}
 							
 						if(nHC == 0 && resultStrat > 32)
 						{
-							straightBeg = j;
+							straightBeg = j + aceException;
 							resultStrat = 32;
 						}
 							
 					}
 				}
-				else if(straight_flush == 3)
+				if(straight_flush == 3)
 				{
 					nHC = highcardCounter(i);
-					nGaps = gapCounter(i, j);
+					nGaps = gapCounter(i, j + aceException);
 					if(nHC >= nGaps && resultStrat > 14)
 					{
-						straightBeg = j;
+						straightBeg = j + aceException;
 						flushSuit = i;
 						resultStrat = 14;
 					}
-					else if((nGaps == 1 || (nGaps == 2 && nHC == 1) || (j == 0 && mat_hand[i][12] != 0) || (mat_hand[i][3] == 0 && j == 0 &&  mat_hand[i][12] == 0)) && resultStrat > 20)
+					else if(((nGaps == 1) || (nGaps == 2 && nHC == 1) || (j == -1 && mat_hand[i][12] != 0) || (mat_hand[i][0] != 0 && mat_hand[i][1] != 0 &&  mat_hand[i][2] != 0)) && resultStrat > 20)
 					{
-						straightBeg = j;
+						straightBeg = j + aceException;
 						flushSuit = i;
 						resultStrat = 20;
 					}
 						
-					else if(nGaps == 2 && nHC == 0 && resultStrat > 20)
+					else if(nGaps == 2 && nHC == 0 && resultStrat > 27)
 					{
-						straightBeg = j;
+						straightBeg = j + aceException;
 						flushSuit = i;
 						resultStrat = 27;
 					}
@@ -548,11 +669,15 @@ public class PerfectStrategy extends Strategy {
 	public void isSuited()
 	{
 		int[] highCards = new int[]{-5, -4, -3, -2, -1}; // T, J, Q, K, A
+		int suitedHC = -1;
 		int nHC = -1;
 		for(int i = 0; i < 4; i++)
 		{
 			if(nHC != 2)
+			{
 				nHC = highcardCounter(i);
+				suitedHC = i;
+			}
 			for(int j = 8; j < 13; j++)
 			{
 				if(super.mat_hand[i][j] != 0)
@@ -561,15 +686,33 @@ public class PerfectStrategy extends Strategy {
 		}
 		
 		if(highCards[1] == highCards[2] && resultStrat > 16)
+		{
+			flushSuit = highCards[1];
 			resultStrat = 16;
+		}	
 		else if(nHC == 2 && resultStrat > 18)
+		{
+			flushSuit = suitedHC;
 			resultStrat = 18;
+		}
 		else if(highCards[0] == highCards[1] && resultStrat > 23)
+		{
+			flushSuit = highCards[1];
 			resultStrat = 23;
+		}
+			
 		else if(highCards[0] == highCards[2] && resultStrat > 26)
+		{
+			flushSuit = highCards[0];
 			resultStrat = 26;
+		}
+			
 		else if(highCards[0] == highCards[3] && resultStrat > 30)
+		{
+			flushSuit = highCards[0];
 			resultStrat = 30;	
+		}
+			
 	}
 	
 	public void isUnsuited()
@@ -579,7 +722,7 @@ public class PerfectStrategy extends Strategy {
 		for(int j = 9; j < 13; j++)
 		{
 			if(super.sumCol(j) == 1)
-				highCards[j - 8] = 1;
+				highCards[j - 9] = 1;
 		}
 		if(super.sumRow(highCards, 0, 4) == 4 && resultStrat > 13)
 			resultStrat = 13;
@@ -601,10 +744,17 @@ public class PerfectStrategy extends Strategy {
 		return super.sumRow(super.mat_hand[row], 9, 4);
 	}
 	
+	public boolean isHighCard(int col)
+	{
+		if(col < 9)
+			return false;
+		
+		return super.sumCol(col) > 0 ? true : false;
+	}
+	
 	public int gapCounter(int row, int col)
 	{
 		int nGaps = 0;
-		
 		for(int i = col + 1; i < col+4; i++)
 		{
 			if(mat_hand[row][i] == 0)
@@ -613,4 +763,14 @@ public class PerfectStrategy extends Strategy {
 		return nGaps;
 	}
 
+	public int gapCounterCol(int col)
+	{
+		int nGaps = 0;
+		for(int i = col + 1; i < col+4; i++)
+		{
+			if(super.sumCol(i) == 0)
+				nGaps++;
+		}
+		return nGaps;
+	}
 }

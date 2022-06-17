@@ -1,7 +1,5 @@
 package Game;
 
-import java.util.Arrays;
-
 import Card.Card;
 import Player.*;
 
@@ -83,7 +81,6 @@ public class Strategy {
 		this.isEqualRank();
 		this.isFlush();
 		this.isStraight();
-
 		return winning_hands[result];
 	}
 
@@ -178,7 +175,7 @@ public class Strategy {
 		int result = 0;
 		for(int i = index; i < index + length; i++)
 		{
-			if(array[i] != 0) 
+			if(array[i] > 0) 
 				result++;
 		}
 			
@@ -189,8 +186,11 @@ public class Strategy {
 	protected int sumCol(int col) {
 		int result = 0;
 		for(int i = 0; i < 4; i++)
-			if(mat_hand[i][col] != 0)
-			result++;
+		{
+			if(mat_hand[i][col] > 0)
+				result++;
+		}
+			
 		return result;
 	}
 
