@@ -41,13 +41,13 @@ public abstract class VideoPoker {
 		}
 			
 		
-		else if(result.equals("FOUR 2 4"))
+		else if(result.equals("FOUR 2-4"))
 		{
 			Nb[6]++;
 			player.setBalance(betSize*80);
 		}
 			
-		else if(result.equals("FOUR 5 K"))
+		else if(result.equals("FOUR 5-K"))
 		{
 			Nb[6]++;
 			player.setBalance(betSize*50);
