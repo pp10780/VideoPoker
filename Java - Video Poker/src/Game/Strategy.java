@@ -81,6 +81,7 @@ public class Strategy {
 		this.isEqualRank();
 		this.isFlush();
 		this.isStraight();
+		//System.out.println("Result -> " + winning_hands[result]);
 		return winning_hands[result];
 	}
 

@@ -31,6 +31,7 @@ public class Dealer_sim extends Dealer{
 	{
 		Collection<Card> disc = new LinkedList<Card>(discarded.getDiscarded());
 		Collection<Card> hand_c = new LinkedList<Card>(hand.getCards());
+		hand.emptyHand();
 		
 		deck.getDeck().addAll(disc);
 		deck.getDeck().addAll(hand_c);
@@ -40,6 +41,7 @@ public class Dealer_sim extends Dealer{
 	public void discard(LinkedList<Card> discarded_cards) 
 	{
 		discarded = new Discarded(discarded_cards);
+		//System.out.println("Discarded ->" + discarded_cards);
 	}
 
 }

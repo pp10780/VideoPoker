@@ -33,6 +33,7 @@ public class PerfectStrategy extends Strategy {
 		this.isEqualRank();
 		this.isFlush();
 		this.isStraight();
+		//System.out.println("Strat -> " + resultStrat);
 		if(resultStrat == 1)
 		{
 			for(i = 0; i < 5; i++)

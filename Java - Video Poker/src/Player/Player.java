@@ -8,12 +8,14 @@ public class Player {
 
 	private int balance;
 	private int wagered;
+	private int earnings;
 	private Hand hand;
 
 	public Player(int _balance) {
 		// TODO - implement Player.Player
 		balance = _balance;
 		wagered = 0;
+		earnings = 0;
 		hand = new Hand();
 		
 	}
@@ -28,11 +30,18 @@ public class Player {
 
 	public void discard(int[] cards, Dealer_sim dealer) {
 		LinkedList<Card> discarded = new LinkedList<Card>();
-		for(int i = 0; i < cards.length; i++)
+		int cnt = 0;
+		for(int i = cards.length - 1; i >= 0; i--)
 		{
-			discarded.add(hand.getCards().remove(cards[i] - 1));
+			if(cards[i] == 0)
+			{
+				discarded.add(hand.getCards().remove(i));
+				cnt++;
+			}
+				
 		}
 		dealer.discard(discarded);
+		dealer.draw(this, cnt);
 	}
 
 	public void bet(int value) {
@@ -43,6 +52,7 @@ public class Player {
 
 	public void setBalance(int value) {
 		balance += value;
+		earnings += value;
 	}
 
 	public int getBalance() {
@@ -52,6 +62,11 @@ public class Player {
 	public int getWagered()
 	{
 		return wagered;
+	}
+	
+	public int getEarnings()
+	{
+		return earnings;
 	}
 
 }

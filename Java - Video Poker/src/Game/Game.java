@@ -66,7 +66,9 @@ public class Game {
 		
 	}
 	
-	public void initGame_sim(String arg, String cmd_file, String card_file) {
+	public void initGame_sim(String[] arg, int credit, int nbDeals, int betSize) {
+		game = new VideoPoker_sim(credit, nbDeals, betSize);
 		
+		game.execute_cmd(arg);
 	}
 }

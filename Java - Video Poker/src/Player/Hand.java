@@ -24,6 +24,11 @@ public class Hand {
 		hand.addAll(new_cards_c);
 	}
 	
+	public void emptyHand()
+	{
+		hand.clear();
+	}
+	
 	public int getBetSize()
 	{
 		return bet_size;

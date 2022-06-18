@@ -10,6 +10,8 @@ public class VideoPoker_deb implements VideoPoker{
 	private int previous_bet;
 	private Strategy final_hand;
 	private PerfectStrategy first_hand;
+	private int[] Nb;
+	private float final_percent;
 	
 	
 	public VideoPoker_deb(int credit, String[] cards) {
@@ -17,6 +19,7 @@ public class VideoPoker_deb implements VideoPoker{
 		dealer = new Dealer_deb(cards);
 		previous_bet = -1;
 		final_hand = new Strategy();
+		Nb = new int[12];
 	}
 
 	public void execute_cmd(String[] cmd) {
@@ -113,6 +116,11 @@ public class VideoPoker_deb implements VideoPoker{
 				}
 				System.out.println("");
 			}
+			else if(cmd[i].equals("s"))
+			{
+				System.out.println("-cmd " + cmd[i]);
+				Statistics();
+			}
 			else
 			{
 				System.out.println("Invalid Command! -> " + cmd[i]);
@@ -124,6 +132,7 @@ public class VideoPoker_deb implements VideoPoker{
 	{
 		if(result.equals("ROYAL FLUSH"))
 		{
+			Nb[8]++;
 			if(player.getHand().getBetSize() == 5)
 				player.setBalance(4000);
 			else
@@ -134,6 +143,7 @@ public class VideoPoker_deb implements VideoPoker{
 			
 		else if(result.equals("STRAIGHT FLUSH"))
 		{
+			Nb[7]++;
 			player.setBalance(player.getHand().getBetSize()*50);
 			
 			System.out.println("player wins with a " + result + " and his credit is " + player.getBalance());
@@ -141,6 +151,7 @@ public class VideoPoker_deb implements VideoPoker{
 			
 		else if(result.equals("FOUR ACES"))
 		{
+			Nb[6]++;
 			player.setBalance(player.getHand().getBetSize()*160);
 			
 			System.out.println("player wins with a " + result + " and his credit is " + player.getBalance());
@@ -149,6 +160,7 @@ public class VideoPoker_deb implements VideoPoker{
 		
 		else if(result.equals("FOUR 2–4"))
 		{
+			Nb[6]++;
 			player.setBalance(player.getHand().getBetSize()*80);
 			
 			System.out.println("player wins with a " + result + " and his credit is " + player.getBalance());
@@ -156,6 +168,7 @@ public class VideoPoker_deb implements VideoPoker{
 			
 		else if(result.equals("FOUR 5–K"))
 		{
+			Nb[6]++;
 			player.setBalance(player.getHand().getBetSize()*50);
 			
 			System.out.println("player wins with a " + result + " and his credit is " + player.getBalance());
@@ -163,6 +176,7 @@ public class VideoPoker_deb implements VideoPoker{
 			
 		else if(result.equals("FULL HOUSE"))
 		{
+			Nb[5]++;
 			player.setBalance(player.getHand().getBetSize()*10);
 			
 			System.out.println("player wins with a " + result + " and his credit is " + player.getBalance());
@@ -170,6 +184,7 @@ public class VideoPoker_deb implements VideoPoker{
 			
 		else if(result.equals("FLUSH"))
 		{
+			Nb[4]++;
 			player.setBalance(player.getHand().getBetSize()*7);
 			
 			System.out.println("player wins with a " + result + " and his credit is " + player.getBalance());
@@ -177,6 +192,7 @@ public class VideoPoker_deb implements VideoPoker{
 			
 		else if(result.equals("STRAIGHT"))
 		{
+			Nb[3]++;
 			player.setBalance(player.getHand().getBetSize()*5);
 			
 			System.out.println("player wins with a " + result + " and his credit is " + player.getBalance());
@@ -184,6 +200,7 @@ public class VideoPoker_deb implements VideoPoker{
 			
 		else if(result.equals("THREE OF A KIND"))
 		{
+			Nb[2]++;
 			player.setBalance(player.getHand().getBetSize()*3);
 			
 			System.out.println("player wins with a " + result + " and his credit is " + player.getBalance());
@@ -191,18 +208,25 @@ public class VideoPoker_deb implements VideoPoker{
 			
 		else if(result.equals("TWO PAIR"))
 		{
+			Nb[1]++;
 			player.setBalance(player.getHand().getBetSize()*1);
 			
 			System.out.println("player wins with a " + result + " and his credit is " + player.getBalance());
 		}	
 		else if(result.equals("JACKS OR BETTER"))
 		{
+			Nb[0]++;
 			player.setBalance(player.getHand().getBetSize()*1);
 			
 			System.out.println("player wins with a " + result + " and his credit is " + player.getBalance());
 		}
 		else
+		{
+			Nb[9]++;
 			System.out.println("player loses and his credit is " + player.getBalance());
+		}
+		Nb[10]++;
+			
 	}
 
 	public void bet(int value) {
@@ -226,6 +250,32 @@ public class VideoPoker_deb implements VideoPoker{
 			previous_bet = value;
 		}
 			
+	}
+	
+	public void Statistics()
+	{
+		Nb[11] = player.getBalance();
+		float earnings = player.getEarnings();
+		float wagered = player.getWagered();
+		
+		final_percent = (earnings/ wagered) * 100;
+		System.out.println();
+		System.out.println("  "+"Hand                             Nb");
+		System.out.println("  "+"------------------------------------");
+		System.out.println("  "+"Jacks or Better                  "+Nb[0]+"");
+		System.out.println("  "+"Two Pair                         "+Nb[1]+"");
+		System.out.println("  "+"Three of a kind                  "+Nb[2]+"");
+		System.out.println("  "+"Straight                         "+Nb[3]+"");
+		System.out.println("  "+"Flush                            "+Nb[4]+"");
+		System.out.println("  "+"Full House                       "+Nb[5]+"");
+		System.out.println("  "+"Four of a Kind                   "+Nb[6]+"");
+		System.out.println("  "+"Straight Flush                   "+Nb[7]+"");
+		System.out.println("  "+"Royal Flush                      "+Nb[8]+"");
+		System.out.println("  "+"Other                            "+Nb[9]+"");
+		System.out.println("  "+"------------------------------------");
+		System.out.println("  "+"Total                            "+Nb[10]+"");
+		System.out.println("  "+"------------------------------------");
+		System.out.println("  "+"Credit                 "+Nb[11]+"("+String.format("%.1f", final_percent)+"%)");
 	}
 
 	public void credit() {
