@@ -5,7 +5,7 @@ import dealer.DealerDeb;
 public class VideoPokerDeb extends VideoPoker{
 
 	private DealerDeb dealer;
-	String[] cmd;
+	private String[] cmd;
 	
 	public VideoPokerDeb(int credit, String[] cards, String[] cmd_line, Variant gameVariant, Payout payVariant) {
 		super(credit, gameVariant, payVariant);
