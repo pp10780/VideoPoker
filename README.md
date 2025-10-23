@@ -1,7 +1,3 @@
-Here is a concise yet informative `README.md` draft for your GitHub repository:
-
----
-
 # Math in Casinos: Video Poker
 
 This project implements a **Video Poker** game, following the *Double Bonus 10/7* variant. It was developed as part of the *Object-Oriented Programming (OOP)* course (MEEC/LEEC – IST, 2021/22). The program simulates both interactive and automated play, using perfect strategy to achieve statistically accurate results.
@@ -66,13 +62,3 @@ java -jar VideoPoker.jar -s <credit> <bet> <nbdeals>
 * Concepts used: Encapsulation, inheritance, polymorphism, and open–closed principle.
 * Includes both **short-pay** and **full-pay** game variants.
 
-## 📊 Evaluation Criteria
-
-* UML Design: 2.5 points
-* Java Implementation and Extensibility: 7.5 points
-
-  * Correct OOP principles, clean structure, and functional JAR execution required.
-
----
-
-Would you like the README to include a short section crediting you (e.g., your name, year, and institution), or should it stay neutral and academic in tone?
